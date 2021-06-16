@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/moikuni/aec"
+	"github.com/morikuni/aec"
 	"github.com/spf13/cobra"
 )
 
@@ -16,28 +16,27 @@ func PrintAsciiArt(){
 	fmt.Print(logo)
 }
 
-func Version () *cobra.Command {
+func BuildVersion() *cobra.Command {
 	var command = &cobra.Command{
 		Use:	"version",
-		Short	"Print the version",
-		Example ` tool version`
+		Short: "Print the version",
+		Example: ` tool version`,
 		SilenceUsage: false,
 	}
 	command.Run = func(cmd *cobra.Command, args []string) {
 		PrintAsciiArt()
 		if len(Version) == 0 {
 			fmt.Println("Version: dev")
-		}
-		else {
+		} else {
 			fmt.Println("Version:", Version)
 		}
-		fmt.Println("Git Commit:" GitCommit)
-		fmt.Printf("\n%s\n", SupportMsg)
+
+		fmt.Println("Git Commit:", GitCommit)
 	}
 	return command
 }
 
-cont asciiartString = `
+const asciiartString = `
 ___________              __     _____                 
 \__    ___/___   _______/  |_  /  _  \ ______ ______  
   |    |_/ __ \ /  ___/\   __\/  /_\  \\____ \\____ \ 

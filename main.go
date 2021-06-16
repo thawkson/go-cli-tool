@@ -2,22 +2,25 @@ package main
 
 import (
 	"os"
-	"cmd"
+	"example.com/cmd"
 	"github.com/spf13/cobra"
 )
 
 func main() {
-	cmdVersion := cmd.Version()
+	cmdVersion := cmd.BuildVersion()
 
 	PrintAsciiArt := cmd.PrintAsciiArt
 
 	var rootCmd = &cobra.Command{
 		Use: "tool",
-		Run: func(cmdn *cobra.Command, args []string) {
+		Run: func(cmd *cobra.Command, args []string) {
 			PrintAsciiArt()
-		}
-	},
+			cmd.Help()
+		},
+	}
+
 	rootCmd.AddCommand(cmdVersion)
+	
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}

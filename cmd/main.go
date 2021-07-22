@@ -2,7 +2,7 @@ package main
 
 import (
 	"os"
-	"example.com/cmd"
+	cmd "github.com/thawkson/go-cli-tool/pkg/version"
 	"github.com/spf13/cobra"
 )
 

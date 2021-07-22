@@ -1,9 +1,10 @@
 SHELL := bash
 Version := $(shell git describe --tags --dirty)
 GitCommit := $(shell git rev-parse HEAD)
-LDFLAGS := "-s -w -X cmd.Version=$(Version) -X cmd.GitCommit=$(GitCommit)"
+LDFLAGS := "-s -w"
 export GO111MODULE=on
 SOURCE_DIRS = cmd main.go
+GOPATH=${PWD}/cmd
 
 .PHONY: all
 all: gofmt dist hash
@@ -16,11 +17,11 @@ gofmt:
 dist:
 	mkdir -p bin/
 	rm -rf bin/tool*
-	CGO_ENABLED=0 GOOS=linux go build -a -ldflags $(LDFLAGS) -installsuffix cgo -o bin/tool
-	CGO_ENABLED=0 GOOS=darwin go build -a -ldflags $(LDFLAGS) -installsuffix cgo -o bin/tool-darwin
-	GOARM=6 GOARCH=arm CGO_ENABLED=0 GOOS=linux go build -a -ldflags $(LDFLAGS) -installsuffix cgo -o bin/tool-armhf
-	GOARCH=arm64 CGO_ENABLED=0 GOOS=linux go build -a -ldflags $(LDFLAGS) -installsuffix cgo -o bin/tool-arm64
-	GOOS=windows CGO_ENABLED=0 go build -a -ldflags $(LDFLAGS) -installsuffix cgo -o bin/tool.exe
+	GOOS=linux go build -o bin/tool cmd/main.go
+	GOOS=darwin go build -o bin/tool-darwin cmd/main.go
+	GOARM=6 GOARCH=arm GOOS=linux go build -o bin/tool-armhf cmd/main.go
+	GOARCH=arm64 GOOS=linux go build -o bin/tool-arm64 cmd/main.go
+	GOOS=windows go build -o bin/tool.exe cmd/main.go
 
 .PHONY: hash
 hash:

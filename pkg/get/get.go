@@ -1,4 +1,4 @@
-package cmd
+package get
 
 import (
 	"fmt"
@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	"github.com/cheggaaa/pb/v3"
-	"example.com/pkg/archive"
-	"example.com/pkg/config"
+	"github.com/thawkson/go-cli-tool/pkg/archive"
+	"github.com/thawkson/go-cli-tool/pkg/config"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )

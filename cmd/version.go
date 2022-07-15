@@ -2,25 +2,30 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/morikuni/aec"
 	"github.com/spf13/cobra"
 )
 
 var (
-	Version string
+	Version   string
 	GitCommit string
 )
 
-func PrintAsciiArt(){
+func init() {
+	rootCmd.AddCommand(versionCmd())
+}
+
+func PrintAsciiArt() {
 	logo := aec.RedF.Apply(asciiartString)
 	fmt.Print(logo)
 }
 
-func BuildVersion() *cobra.Command {
+func versionCmd() *cobra.Command {
 	var command = &cobra.Command{
-		Use:	"version",
-		Short: "Print the version",
-		Example: ` tool version`,
+		Use:          "version",
+		Short:        "Print the version",
+		Example:      ` tool version`,
 		SilenceUsage: false,
 	}
 	command.Run = func(cmd *cobra.Command, args []string) {

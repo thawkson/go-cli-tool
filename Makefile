@@ -4,7 +4,7 @@ GitCommit := $(shell git rev-parse HEAD)
 LDFLAGS := "-s -w -X cmd.Version=$(Version) -X cmd.GitCommit=$(GitCommit)"
 export GO111MODULE=on
 TOOL_NAME=$(notdir $(shell pwd))
-NEW_COMMAND=${CLI:-default}
+NEW_COMMAND=${CLI}
 SOURCE_DIRS = cmd main.go
 
 .PHONY: all
